@@ -1,4 +1,4 @@
-module github.com/chaojin101/email
+module github.com/chaojin101/go-email
 
 go 1.18
 
