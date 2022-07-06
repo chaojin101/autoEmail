@@ -1,4 +1,4 @@
-module github.com/chaojin101/go-email
+module github.com/chaojin101/autoEmail
 
 go 1.18
 
