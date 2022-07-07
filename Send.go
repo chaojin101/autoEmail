@@ -33,7 +33,14 @@ func (s *Sender) Send(r Recipient) error {
 	m.SetHeader("Subject", s.Subject)
 	m.SetBody("text/plain", s.Text)
 	for _, f := range s.Attach {
-		m.Attach(f)
+		// m.Attach(f)
+		name := f
+		m.Attach(f,
+			gomail.Rename(f), //重命名
+			gomail.SetHeader(map[string][]string{
+				"Content-Disposition": {fmt.Sprintf(`attachment; filename="%s"`, mime.QEncoding.Encode("UTF-8", name))},
+			}),
+		)
 	}
 
 	// Send the email to Bob, Cora and Dan.
