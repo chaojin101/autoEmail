@@ -28,8 +28,8 @@ func (s *Sender) Send(r Recipient) error {
 
 	// Send emails using d.
 	m := gomail.NewMessage()
-	m.SetHeader("From", fmt.Sprintf("%s <%s>", s.Name, s.Mail))
-	m.SetHeader("To", fmt.Sprintf("%s <%s>", r.Name, r.Mail))
+	m.SetHeader("From", m.FormatAddress(s.Mail, s.Name))
+	m.SetHeader("To", m.FormatAddress(r.Mail, r.Name))
 	m.SetHeader("Subject", s.Subject)
 	m.SetBody("text/plain", s.Text)
 	for _, f := range s.Attach {
