@@ -15,6 +15,7 @@ type Sender struct {
 	Subject         string   // Notice
 	Text            string   // Hello
 	Attach          []string // info.xlsx
+	NeedRecipt 	string   // 1
 }
 
 type Recipient struct {
@@ -32,6 +33,9 @@ func (s *Sender) Send(r Recipient) error {
 	m.SetHeader("To", m.FormatAddress(r.Mail, r.Name))
 	m.SetHeader("Subject", s.Subject)
 	m.SetBody("text/plain", s.Text)
+	if s.NeedRecipt == "1" {
+		m.SetHeader("Disposition-Notification-To", r.Mail)
+	}
 	for _, f := range s.Attach {
 		// m.Attach(f)
 		name := f
